@@ -184,5 +184,11 @@ func (this CommonAuth) Params() map[string]string {
 	m["product_id"] = "APP_FAST_LOGIN"
 	m["target_id"] = this.TargetId
 	m["auth_type"] = this.AuthType
+	if this.Scope != "" {
+		m["scope"] = this.Scope
+	}
+	if this.CertVerifyId != "" {
+		m["cert_verify_id"] = this.CertVerifyId
+	}
 	return m
 }
