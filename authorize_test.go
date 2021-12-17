@@ -80,3 +80,22 @@ func TestClient_AccountAuth(t *testing.T) {
 	}
 	t.Log(result)
 }
+
+
+func TestClient_CommonAuth(t *testing.T) {
+	t.Log("========== CommonAuth ==========")
+	var p = alipay.CommonAuth{}
+	p.Pid = "2088123456789012"
+	p.TargetId = "kkkkk091125"
+	p.AuthType = "AUTHACCOUNT"
+	p.Scope="id_verify"
+	p.CertVerifyId="6441c258b5b57dca7d6eccbc6711427c"
+	result, err := client.CommonAuth(p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result == "" {
+		t.Fatal(err)
+	}
+	t.Log(result)
+}

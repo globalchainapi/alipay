@@ -161,3 +161,28 @@ func (this AccountAuth) Params() map[string]string {
 	m["auth_type"] = this.AuthType
 	return m
 }
+
+// CommonAuth 支付宝授权时, 帮客户端做参数签名, 返回授权请求信息字串接口请求参数 https://docs.open.alipay.com/218/105327/
+type CommonAuth struct {
+	Pid          string `json:"pid"`
+	TargetId     string `json:"target_id"`
+	AuthType     string `json:"auth_type"`
+	Scope        string `json:"scope"`
+	CertVerifyId string `json:"cert_verify_id"`
+}
+
+func (this CommonAuth) APIName() string {
+	return "alipay.open.auth.sdk.code.get"
+}
+
+func (this CommonAuth) Params() map[string]string {
+	var m = make(map[string]string)
+	m["apiname"] = "com.alipay.account.auth"
+	m["app_name"] = "mc"
+	m["biz_type"] = "openservice"
+	m["pid"] = this.Pid
+	m["product_id"] = "APP_FAST_LOGIN"
+	m["target_id"] = this.TargetId
+	m["auth_type"] = this.AuthType
+	return m
+}

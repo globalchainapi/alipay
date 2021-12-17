@@ -97,3 +97,27 @@ func (this *Client) AccountAuth(param AccountAuth) (result string, err error) {
 
 	return p.Encode(), err
 }
+
+// CommonAuth 支付宝授权时, 帮客户端做参数签名, 返回授权请求信息字串接口 https://docs.open.alipay.com/218/105327
+func (this *Client) CommonAuth(param CommonAuth) (result string, err error) {
+	var p = url.Values{}
+	p.Add("app_id", this.appId)
+	p.Add("method", param.APIName())
+
+	var ps = param.Params()
+	if ps != nil {
+		for key, value := range ps {
+			p.Add(key, value)
+		}
+	}
+
+	p.Add("sign_type", kSignTypeRSA2)
+
+	sign, err := signWithPKCS1v15(p, this.appPrivateKey, crypto.SHA256)
+	if err != nil {
+		return "", err
+	}
+	p.Add("sign", sign)
+
+	return p.Encode(), err
+}
