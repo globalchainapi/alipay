@@ -109,8 +109,6 @@ type UserCertifyOpenQueryRsp struct {
 	Sign string `json:"sign"`
 }
 
-
-
 type UserCertDocCertVerifyPreConsultParam struct {
 	AppAuthToken string `validate:"omitempty,max=40" json:"-"`
 	Username     string `validate:"required,max=30" json:"user_name"`                      // 真实姓名, 必填
@@ -133,11 +131,11 @@ func (this UserCertDocCertVerifyPreConsultParam) Params() map[string]string {
 
 type UserCertDocCertVerifyPreConsultResult struct {
 	Content struct {
-		Code     Code `json:"code"`
-		Msg      string         `json:"msg"`
-		SubCode  string         `json:"sub_code"`
-		SubMsg   string         `json:"sub_msg"`
-		VerifyId string         `json:"verify_id"`
+		Code     Code   `json:"code"`
+		Msg      string `json:"msg"`
+		SubCode  string `json:"sub_code"`
+		SubMsg   string `json:"sub_msg"`
+		VerifyId string `json:"verify_id"`
 	} `json:"alipay_user_certdoc_certverify_preconsult_response"`
 	Sign string `json:"sign"`
 }
@@ -145,7 +143,7 @@ type UserCertDocCertVerifyPreConsultResult struct {
 type UserCertDocCertVerifyConsultParam struct {
 	AppAuthToken string `validate:"omitempty,max=40" json:"-"`
 	VerifyId     string `validate:"required,max=100" json:"verify_id"`
-	AuthToken    string `validate:"required,max=40" json:"auth_token"`
+	AuthToken    string `validate:"required,max=40" json:"-"`
 }
 
 func (this UserCertDocCertVerifyConsultParam) APIName() string {
@@ -155,18 +153,19 @@ func (this UserCertDocCertVerifyConsultParam) APIName() string {
 func (this UserCertDocCertVerifyConsultParam) Params() map[string]string {
 	var m = make(map[string]string)
 	m["app_auth_token"] = this.AppAuthToken // app授权token值, 可选
+	m["auth_token"] = this.AuthToken        // app授权token值, 可选
 	return m
 }
 
 type UserCertDocCertVerifyConsultResult struct {
 	Content struct {
-		Code       Code `json:"code"`
-		Msg        string         `json:"msg"`
-		SubCode    string         `json:"sub_code"`
-		SubMsg     string         `json:"sub_msg"`
-		Passed     string         `json:"passed"`      // T-一致、F-不一致
-		FailReason string         `json:"fail_reason"` // 校验不一致时，描述不一致的原因
-		FailParams string         `json:"fail_params"` // 具体哪些字段不一致
+		Code       Code   `json:"code"`
+		Msg        string `json:"msg"`
+		SubCode    string `json:"sub_code"`
+		SubMsg     string `json:"sub_msg"`
+		Passed     string `json:"passed"`      // T-一致、F-不一致
+		FailReason string `json:"fail_reason"` // 校验不一致时，描述不一致的原因
+		FailParams string `json:"fail_params"` // 具体哪些字段不一致
 	} `json:"alipay_user_certdoc_certverify_consult_response"`
 	Sign string `json:"sign"`
 }
