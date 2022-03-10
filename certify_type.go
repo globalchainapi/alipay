@@ -113,7 +113,7 @@ type UserCertDocCertVerifyPreConsultParam struct {
 	AppAuthToken string `validate:"omitempty,max=40" json:"-"`
 	Username     string `validate:"required,max=30" json:"user_name"`                      // 真实姓名, 必填
 	CertType     string `validate:"required,max=180,oneof=IDENTITY_CARD" json:"cert_type"` // 证件类型, 仅支持IDENTITY_CARD(身份证), 必填
-	CertNo       string `validate:"required,max=64,alphanum,number" json:"cert_no"`        // 证件号码, 必填
+	CertNo       string `validate:"required,min=1,max=64" json:"cert_no"`                  // 证件号码, 必填
 	Mobile       string `validate:"omitempty,max=30" json:"mobile,omitempty"`              // 手机号码, 可选
 	LogonID      string `validate:"omitempty,max=100" json:"logon_id,omitempty"`           // 支付宝登录名, 可选
 	ExtInfo      string `validate:"omitempty,max=3000,json" json:"ext_info,omitempty"`     // 扩展字段json格式, 可选
